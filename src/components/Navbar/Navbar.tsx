@@ -60,16 +60,18 @@ export const Navbar: FC<PropsWithChildren<Navbar>> = () => {
             <div className="flex justify-between items-center py-2 px-10 bg-zinc-900">
                 <div className="flex">
                     <button
+                        onClick={() => navigate("/")}
                         type="button"
                         className="inline-block duration-300 p-3 text-white shadow-lg hover:text-violet-700"
                     >
-                        <a href="/">Home</a>
+                        Home
                     </button>
                     <button
+                        onClick={() => navigate("/favorite/")}
                         type="button"
                         className="inline-block duration-300 p-3 text-white shadow-lg hover:text-violet-700"
                     >
-                        <a href="/favorite/">Favorite</a>
+                        Favorite
                     </button>
                 </div>
                 <form className="relative">
