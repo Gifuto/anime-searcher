@@ -13,14 +13,16 @@ export const favoriteSlice = createSlice({
     initialState,
     reducers: {
         addToFavorite: (state, action: PayloadAction<Favorite>) => {
-            const favoriteCard = {
-                title: action.payload.title,
-                id: action.payload.id,
-                img: action.payload.img,
-            };
-            const item = state.items.find((item) => item.id);
-            if (item?.id !== favoriteCard.id) {
-                state.items.push(favoriteCard);
+            if (state.items.find(({ id }) => id === action.payload.id)) {
+                alert("it's already in my favorites")
+            } else {
+                const favoriteCard = {
+                    title: action.payload.title,
+                    id: action.payload.id,
+                    img: action.payload.img,
+                };
+                state.items.push(favoriteCard);        
+                console.log(state.items)
             }
         },
         removeFavorite: (state, action: PayloadAction<number>) => {

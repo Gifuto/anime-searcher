@@ -29,11 +29,12 @@ export const Favorites = () => {
         },
         [dispatch]
     );
+    console.log(favorite)
 
     useEffect(() => {
         if (favorite.length !== 0) {
             setContent(
-                <div className="mx-10 h-screen">
+                <div className="mx-10">
                     {favorite.map((cards) => (
                         <FavoriteCard
                             key={cards.id}
@@ -58,7 +59,7 @@ export const Favorites = () => {
     }, [favorite]);
 
     return (
-        <div className="bg-slate-200">
+        <div className="bg-slate-200 min-h-screen">
             <Navbar />
             <div className="bg-transparent pt-[100px]">
                 <div className="mx-auto w-[800px] mt-5 py-10 bg-white drop-shadow-2xl">

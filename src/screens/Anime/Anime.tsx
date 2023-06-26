@@ -104,12 +104,13 @@ export const Anime = () => {
 
         setTimeout(() => {
             dispatch(favoriteActions.addToFavorite(favoriteCard));
+
             setAddFavorite(<span>added to favorite</span>);
         }, 1000);
     };
 
     return (
-        <div className="bg-slate-200">
+        <div className="bg-slate-200 min-h-screen">
             <Navbar />
             <div className="bg-transparent pt-[100px]">
                 <div className="mx-10 mt-5 py-10 bg-white drop-shadow-2xl">
