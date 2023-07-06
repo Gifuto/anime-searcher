@@ -2,8 +2,6 @@ import { FC, PropsWithChildren } from "react";
 
 type LoadProps = {};
 
-type Apology = {}
-
 export const Load: FC<PropsWithChildren<LoadProps>> = () => {
     return (
         <div className="w-[300px] mx-auto text-center">
