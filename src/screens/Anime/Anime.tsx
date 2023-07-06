@@ -47,7 +47,7 @@ export const Anime = () => {
                 setAnimeImg(`${features.title}`);
             }
 
-            if (features.trailer.url !== null) {
+            if (features.trailer.url) {
                 setCheckLink(!checkLink);
             } else {
                 setCheckLink(checkLink);
@@ -98,6 +98,8 @@ export const Anime = () => {
             setAddFavorite("added to favorite");
         }, 1000);
     };
+
+    const videoUrl = features.trailer.url
 
     return (
         <div className="bg-slate-200 w-full">
@@ -180,8 +182,8 @@ export const Anime = () => {
                                     <ReactPlayer
                                         className="mx-auto"
                                         width={adaptiveYTube}
-                                        controls={true}
-                                        url={features.trailer.url}
+                                        controls
+                                        url={videoUrl}
                                         fallback={<Load />}
                                     />
                                 </div>
