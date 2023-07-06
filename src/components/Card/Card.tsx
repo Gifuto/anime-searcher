@@ -1,5 +1,4 @@
 import { FC, PropsWithChildren, useEffect, useState } from "react";
-
 interface Card {
     title: string;
     title_english: string;
@@ -8,8 +7,12 @@ interface Card {
     year: number;
     type: string;
     synopsis: string;
-    genres: any
+    genres: Genres[];
     requestFeatures: any;
+}
+
+interface Genres {
+    name: string;
 }
 
 export const Card: FC<PropsWithChildren<Card>> = ({
@@ -23,36 +26,64 @@ export const Card: FC<PropsWithChildren<Card>> = ({
     genres,
     requestFeatures,
 }) => {
-    const [cardTitle, setCarTitle] = useState('')
-    const [cardFeatures, setCardFeatures] = useState('')
+    const [cardTitle, setCarTitle] = useState("");
+    const [cardFeatures, setCardFeatures] = useState("");
+    const [adaptive, setAdaptive] = useState(false);
+
+    const animeGenres = genres.map((genre: Genres) => genre.name)
 
     useEffect(() => {
         if (title_english !== null) {
-            setCarTitle(`${title} / ${title_english}`)
+            setCarTitle(`${title} / ${title_english}`);
         } else {
-            setCarTitle(`${title}`)
+            setCarTitle(`${title}`);
         }
 
-        if (year !== null) {
-            setCardFeatures(`${type} / ${year} / ${genres.join(", ")}`)
-        } else {
-            setCardFeatures(`${type} / ${genres.join(", ")}`)
-        }
-    }, [cardTitle, cardFeatures])
+        const handleResize = () => {
+            if (window.innerWidth > 500) {
+                setAdaptive(!adaptive);
+                if (year !== null) {
+                    setCardFeatures(`${type} / ${year} / ${animeGenres.join(", ")}`);
+                } else {
+                    setCardFeatures(`${type} / ${animeGenres.join(", ")}`);
+                }
+            } else {
+                setAdaptive(adaptive);
+                if (year !== null) {
+                    setCardFeatures(`${type} / ${year}`);
+                } else {
+                    setCardFeatures(`${type}`);
+                }
+            }
+        };
+
+        handleResize(); // Check initial screen width
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
 
     return (
-        <div onClick={() => requestFeatures(id)} className="flex w-full mb-5 duration-300 cursor-pointer">
-            <div className="max-w-[200px]">
+        <div
+            onClick={() => requestFeatures(id)}
+            className="flex w-full mb-5 duration-300 cursor-pointer"
+        >
+            <div className="sm:max-w-[200px] max-w-[100px]">
                 <img src={img} alt={cardTitle} className="w-full" />
             </div>
-            <div className="ml-5 w-[500px]">
-                <h2 className="line-clamp-1 text-2xl text-purple-600">
+            <div className="ml-5 sm:w-[500px] w-[235px]">
+                <h2 className="line-clamp-1 sm:text-2xl text-lg text-purple-600">
                     {cardTitle}
                 </h2>
-                <p className="text-purple-400 text-lg mt-3">{cardFeatures}</p>
-                <p className="line-clamp-6 text-lg text-justify mt-2">
-                    {synopsis}
-                </p>
+                <p className="text-purple-400 sm:text-lg text-base mt-3">{cardFeatures}</p>
+                {adaptive ? (
+                    <p className="line-clamp-6 text-lg text-justify mt-2">
+                        {synopsis}
+                    </p>
+                ) : null}
             </div>
         </div>
     );

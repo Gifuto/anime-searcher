@@ -45,12 +45,12 @@ export const Main: FC<PropsWithChildren<MainProps>> = () => {
     }, []);
 
     return (
-        <div className="bg-slate-200">
+        <div className="w-full bg-slate-200">
             <Navbar />
-            <div className="bg-transparent pt-[100px]">
-                <div className="mx-auto w-[800px] mt-5 py-10 bg-white drop-shadow-2xl">
+            <div className="bg-transparent pt-[50px] sm:pt-[100px]">
+                <div className="mx-auto sm:w-[700px] mt-5 py-10 bg-white drop-shadow-2xl">
                     <InfiniteScroll
-                        className="mx-10"
+                        className="sm:mx-10 mx-5"
                         dataLength={anime.length}
                         hasMore={hasMore}
                         next={fetchMoreData}
@@ -65,9 +65,7 @@ export const Main: FC<PropsWithChildren<MainProps>> = () => {
                                 title_english={cards.title_english}
                                 type={cards.type}
                                 year={cards.year}
-                                genres={cards.genres.map(
-                                    (genres) => genres.name
-                                )}
+                                genres={cards.genres}
                                 synopsis={cards.synopsis}
                                 requestFeatures={requestFeatures}
                             />

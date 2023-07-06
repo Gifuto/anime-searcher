@@ -8,17 +8,15 @@ import { getFeaturesById } from "../../modules/features/selector";
 import { featuresActions } from "../../modules/features/slice";
 import { favoriteActions } from "../../modules/favorites/slice";
 
-import { Navbar } from "../../components";
-import { Apology, Load } from "../../components/Load/Load";
+import { Details, Load, Navbar } from "../../components";
 
 export const Anime = () => {
     const [animeTitle, setAnimeTitle] = useState("");
-    const [animeFeatures, setAnimeFeatures] = useState("");
     const [animeImg, setAnimeImg] = useState("");
-    const [animeTrailer, setAnimeTrailer] = useState(<></>);
-    const [addFavorite, setAddFavorite] = useState(
-        <span>add to favorite</span>
-    );
+    const [addFavorite, setAddFavorite] = useState("add to favorite");
+    const [adaptive, setAdaptive] = useState(false);
+    const [checkLink, setCheckLink] = useState(false);
+    const [adaptiveYTube, setAdaptiveYTube] = useState(620);
 
     const dispatch = useDispatch();
 
@@ -43,20 +41,6 @@ export const Anime = () => {
                 setAnimeTitle(`${features.title}`);
             }
 
-            if (features.year !== null) {
-                setAnimeFeatures(
-                    `${features.type} / ${features.year} / ${features.genres
-                        .map((genres) => genres.name)
-                        .join(", ")}`
-                );
-            } else {
-                setAnimeFeatures(
-                    `${features.type} / ${features.genres
-                        .map((genres) => genres.name)
-                        .join(", ")}`
-                );
-            }
-
             if (features.images.jpg.image_url !== null) {
                 setAnimeImg(`${features.images.jpg.image_url}`);
             } else {
@@ -64,19 +48,9 @@ export const Anime = () => {
             }
 
             if (features.trailer.url !== null) {
-                setAnimeTrailer(
-                    <div className="bg-black w-full">
-                        <div className="w-[640px] mx-auto">
-                            <ReactPlayer
-                                controls={true}
-                                url={features.trailer.url}
-                                fallback={<Load />}
-                            />
-                        </div>
-                    </div>
-                );
+                setCheckLink(!checkLink);
             } else {
-                setAnimeTrailer(<Apology />);
+                setCheckLink(checkLink);
             }
         }
 
@@ -86,16 +60,32 @@ export const Anime = () => {
         }
     }, [features]);
 
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth > 540) {
+                setAdaptive(!adaptive);
+                setAdaptiveYTube(adaptiveYTube);
+            } else {
+                setAdaptive(adaptive);
+                setAdaptiveYTube(280);
+            }
+        };
+
+        handleResize(); // Check initial screen width
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
     if (!features) {
         return <Load />;
     }
 
     const handleAddToFavorite = () => {
-        setAddFavorite(
-            <span>
-                Loading<span className="animate-pulse">...</span>
-            </span>
-        );
+        setAddFavorite("Loading...");
         const favoriteCard: any = {
             title: animeTitle,
             id: id,
@@ -105,89 +95,67 @@ export const Anime = () => {
         setTimeout(() => {
             dispatch(favoriteActions.addToFavorite(favoriteCard));
 
-            setAddFavorite(<span>added to favorite</span>);
+            setAddFavorite("added to favorite");
         }, 1000);
     };
 
     return (
-        <div className="bg-slate-200 min-h-screen">
+        <div className="bg-slate-200 w-full">
             <Navbar />
-            <div className="bg-transparent pt-[100px]">
-                <div className="mx-10 mt-5 py-10 bg-white drop-shadow-2xl">
-                    <div className="mx-10">
-                        <div className="flex">
+            <div className="bg-transparent pt-[50px] sm:pt-[100px]">
+                <div className="mx-auto sm:w-[700px] mt-5 py-10 bg-white drop-shadow-2xl">
+                    <div className="sm:mx-10 mx-3">
+                        {adaptive ? (
+                            <div className="flex">
+                                <div className="w-[225px]">
+                                    <div className="h-[350px] w-[225px]">
+                                        <img
+                                            src={animeImg}
+                                            alt={animeImg}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </div>
+                                    <div className="mt-5">
+                                        <button
+                                            onClick={handleAddToFavorite}
+                                            className="w-full bg-purple-600 p-2 rounded-md text-white hover:bg-purple-700 duration-300"
+                                        >
+                                            {addFavorite}
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="ml-5">
+                                    <h2 className="line-clamp-1 text-2xl text-purple-600">
+                                        {animeTitle}
+                                    </h2>
+                                    <Details />
+                                </div>
+                            </div>
+                        ) : (
                             <div className="">
-                                <div className="max-w-xs h-[350px]">
-                                    <img
-                                        src={animeImg}
-                                        alt={animeImg}
-                                        className="max-w-xs h-auto"
-                                    />
-                                </div>
                                 <div className="">
-                                    <button
-                                        onClick={handleAddToFavorite}
-                                        className="bg-purple-600 p-2 rounded-md text-white hover:bg-purple-700 duration-300"
-                                    >
-                                        {addFavorite}
-                                    </button>
+                                    <h2 className="line-clamp-1 text-2xl text-purple-600">
+                                        {animeTitle}
+                                    </h2>
+                                    <div className="w-full mt-5">
+                                        <img
+                                            src={animeImg}
+                                            alt={animeImg}
+                                            className="w-full h-auto"
+                                        />
+                                    </div>
+                                    <div className="mt-5">
+                                        <button
+                                            onClick={handleAddToFavorite}
+                                            className="w-full bg-purple-600 p-2 rounded-md text-white hover:bg-purple-700 duration-300"
+                                        >
+                                            {addFavorite}
+                                        </button>
+                                    </div>
                                 </div>
+                                <Details />
                             </div>
-                            <div className="ml-5">
-                                <h2 className="line-clamp-1 text-2xl text-purple-600">
-                                    {animeTitle}
-                                </h2>
-                                <p className="text-purple-400 text-lg mt-3">
-                                    {animeFeatures}
-                                </p>
-                                <p className="text-purple-400 text-lg mt-3">
-                                    <span className="text-purple-600">
-                                        Score:
-                                    </span>{" "}
-                                    {features.score}
-                                </p>
-                                <p className="text-purple-400 text-lg mt-3">
-                                    <span className="text-purple-600">
-                                        Status:
-                                    </span>{" "}
-                                    {features.status}
-                                </p>
-                                <p className="text-purple-400 text-lg mt-3">
-                                    <span className="text-purple-600">
-                                        Rating:
-                                    </span>{" "}
-                                    {features.rating}
-                                </p>
-                                <p className="text-purple-400 text-lg mt-3">
-                                    <span className="text-purple-600">
-                                        Duration:
-                                    </span>{" "}
-                                    {features.duration}
-                                </p>
-                                <p className="text-purple-400 text-lg mt-3">
-                                    <span className="text-purple-600">
-                                        Episodes:
-                                    </span>{" "}
-                                    {features.episodes}
-                                </p>
-                                <p className="text-purple-400 text-lg mt-3">
-                                    <span className="text-purple-600">
-                                        Studios:
-                                    </span>{" "}
-                                    {features.studios
-                                        .map((studios) => studios.name)
-                                        .join(", ")}
-                                </p>
-                                <p className="text-purple-400 text-lg mt-3">
-                                    <span className="text-purple-600">
-                                        Producers:
-                                    </span>{" "}
-                                    {features.producers
-                                        .map((studios) => studios.name)
-                                        .join(", ")}
-                                </p>
-                            </div>
-                        </div>
+                        )}
                         <div className="mt-10">
                             <p className="text-lg text-justify mt-2">
                                 <span className="text-purple-600">
@@ -199,11 +167,27 @@ export const Anime = () => {
                                 )}
                             </p>
                         </div>
-                        <div className="text-lg text-justify mt-5">
-                            <span className="text-purple-600">Trailer:</span>{" "}
-                        </div>
-                        {animeTrailer}
                     </div>
+                    {checkLink && (
+                        <div className="sm:mx-10">
+                            <div className="text-lg text-justify mt-5">
+                                <span className="text-purple-600">
+                                    Trailer:
+                                </span>{" "}
+                            </div>
+                            <div className="bg-black sm:w-[620px] w-[280] mx-auto">
+                                <div className="sm:w-[620px] w-[280]">
+                                    <ReactPlayer
+                                        className="mx-auto"
+                                        width={adaptiveYTube}
+                                        controls={true}
+                                        url={features.trailer.url}
+                                        fallback={<Load />}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

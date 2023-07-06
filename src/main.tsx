@@ -7,10 +7,11 @@ import "./index.css"
 
 import { App } from "./core/App/App.tsx";
 import { store, persistor } from "./modules/index.ts";
+import { Load } from "./components/index.ts";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
+        <PersistGate loading={<Load />} persistor={persistor}>
             <Router>
                 <App />
             </Router>

@@ -23,6 +23,7 @@ export interface Response {
     data: Anime[]
     pagination: {
         has_next_page: boolean
+        last_visible_page: number
     }
 }
 
@@ -31,5 +32,6 @@ export interface AnimeState {
     nextItems: Anime[]
     status: REQUEST_STATUS
     hasNextPage: boolean
+    allPages: number
     currentPage: number
 }

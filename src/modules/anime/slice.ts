@@ -11,6 +11,7 @@ const initialState: AnimeState = {
    nextItems: [],
    status: REQUEST_STATUS.INITIAL,
    hasNextPage: false,
+   allPages: 0,
    currentPage: 1,
 }
 
