@@ -7,10 +7,10 @@ export const App = () => {
     return (
         <div>
             <Routes>
-                <Route path="/" element={<Main />} />
+                <Route path="/anime-searcher/" element={<Main />} />
                 <Route path="/anime/:id" element={<Anime />} />
                 <Route path="/favorite/" element={<Favorites />}/>
-                <Route path="*" element={<Navigate to="/" replace/>} />
+                <Route path="*" element={<Navigate to="/anime-searcher/" replace/>} />
             </Routes>
         </div>
     );
