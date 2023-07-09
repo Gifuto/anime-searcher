@@ -61,7 +61,7 @@ export const Navbar = () => {
     }
 
     const handleGoFavorite = () => {
-        navigate("/anime-searcher/favorite/")
+        navigate("/anime-searcher/favorite")
         window.location.reload();
     }
 
