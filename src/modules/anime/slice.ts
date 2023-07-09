@@ -21,6 +21,7 @@ export const animeSlice = createSlice({
   reducers: {
     requestAnime: (state, action: PayloadAction) => {
       state.status = REQUEST_STATUS.LOADING
+      console.log(action)
     },
     setAnime: (state, action: PayloadAction<Response>) => {
       state.status = REQUEST_STATUS.SUCCESS
@@ -30,6 +31,7 @@ export const animeSlice = createSlice({
     },
     requestNextAnime: (state, action: PayloadAction) => {
       state.status = REQUEST_STATUS.LOADING
+      console.log(action)
     },
     setNextAnime: (state, action: PayloadAction<Response>) => {
       state.status = REQUEST_STATUS.SUCCESS
