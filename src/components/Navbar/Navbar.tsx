@@ -42,7 +42,8 @@ export const Navbar = () => {
         (id: number) => {
             setInputValue("");
             //@ts-ignore
-            dispatch(featuresActions.requestFeatures({ id, navigate }));
+            dispatch(featuresActions.requestFeatures({ id }));
+            navigate(`/anime-searcher/anime/${id}`);
         },
         [dispatch]
     );
