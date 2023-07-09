@@ -19,27 +19,11 @@ function* getAnime({ type }) {
             ); //${payload}
 
             yield put(animeActions.setAnime(response.data));
-        }
-
-        //@ts-ignore
-        const response = yield call(
-            ANIME_API.get,
-            `/anime?page=${currentPage}`
-        ); //${payload} 
-
-        console.log(response)
-
-        if (type === animeActions.requestAnime.type) {
-            yield put(animeActions.setAnime(response.data));
-        } 
-        // else {
-        //     yield put(animeActions.requestNextAnime(response.data))
-        // }
-
-        // if (type === animeActions.requestAnime.type) {
-        //     yield put(animeActions.requestNextAnime());
-        // }
-        
+            
+            if (type === animeActions.requestAnime.type) {
+                yield put(animeActions.requestNextAnime());
+            }
+        }        
     } catch (error) {
         console.log(error);
     }

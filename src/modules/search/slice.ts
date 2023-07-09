@@ -17,7 +17,6 @@ export const searchSlice = createSlice({
   reducers: {
     requestSearch: (state, action: PayloadAction<string>) => {
       state.status = REQUEST_STATUS.LOADING
-      console.log(action)
     },
     setSearch: (state, action: PayloadAction<Response>) => {
       state.status = REQUEST_STATUS.SUCCESS

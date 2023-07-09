@@ -17,7 +17,6 @@ export const featuresSlice = createSlice({
   reducers: {
     requestFeatures: (state, action: PayloadAction<FeaturesRequest>) => {
       state.status = REQUEST_STATUS.LOADING
-      console.log(action)
     },
     setFeatures: (state, action: PayloadAction<Features>) => {
       state.status = REQUEST_STATUS.SUCCESS

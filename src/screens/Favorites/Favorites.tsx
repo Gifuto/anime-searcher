@@ -17,7 +17,8 @@ export const Favorites = () => {
     const requestFeatures = useCallback(
         (id: number) => {
             //@ts-ignore
-            dispatch(featuresActions.requestFeatures({ id, navigate }));
+            dispatch(featuresActions.requestFeatures({ id }));
+            navigate(`/anime-searcher/anime/${id}`);
         },
         [dispatch]
     );

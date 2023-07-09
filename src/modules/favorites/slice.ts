@@ -21,8 +21,7 @@ export const favoriteSlice = createSlice({
                     id: action.payload.id,
                     img: action.payload.img,
                 };
-                state.items.push(favoriteCard);        
-                console.log(state.items)
+                state.items.push(favoriteCard);
             }
         },
         removeFavorite: (state, action: PayloadAction<number>) => {

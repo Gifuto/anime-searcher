@@ -1,5 +1,3 @@
-import { FC, PropsWithChildren } from "react";
-
 interface FavoriteCard {
     title: string;
     id: number;
@@ -8,13 +6,13 @@ interface FavoriteCard {
     handleRemoveFavorite: any;
 }
 
-export const FavoriteCard: FC<PropsWithChildren<FavoriteCard>> = ({
+export const FavoriteCard = ({
     title,
     img,
     id,
     requestFeatures,
     handleRemoveFavorite,
-}) => {
+}: FavoriteCard) => {
     return (
         <div className="flex w-full mb-5">
             <div

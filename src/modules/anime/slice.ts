@@ -10,7 +10,7 @@ const initialState: AnimeState = {
    items: [],
    nextItems: [],
    status: REQUEST_STATUS.INITIAL,
-   hasNextPage: false,
+   hasNextPage: true,
    allPages: 0,
    currentPage: 1,
 }
@@ -21,7 +21,6 @@ export const animeSlice = createSlice({
   reducers: {
     requestAnime: (state, action: PayloadAction) => {
       state.status = REQUEST_STATUS.LOADING
-      console.log(action)
     },
     setAnime: (state, action: PayloadAction<Response>) => {
       state.status = REQUEST_STATUS.SUCCESS
@@ -31,7 +30,6 @@ export const animeSlice = createSlice({
     },
     requestNextAnime: (state, action: PayloadAction) => {
       state.status = REQUEST_STATUS.LOADING
-      console.log(action)
     },
     setNextAnime: (state, action: PayloadAction<Response>) => {
       state.status = REQUEST_STATUS.SUCCESS

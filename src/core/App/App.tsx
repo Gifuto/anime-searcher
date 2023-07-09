@@ -8,8 +8,8 @@ export const App = () => {
         <div>
             <Routes>
                 <Route path="/anime-searcher/" element={<Main />} />
-                <Route path="/anime/:id" element={<Anime />} />
-                <Route path="/favorite/" element={<Favorites />}/>
+                <Route path="/anime-searcher/anime/:id" element={<Anime />} />
+                <Route path="/anime-searcher/favorite/" element={<Favorites />}/>
                 <Route path="*" element={<Navigate to="/anime-searcher/" replace/>} />
             </Routes>
         </div>

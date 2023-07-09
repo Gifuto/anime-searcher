@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 interface Card {
     title: string;
     title_english: string;
@@ -15,7 +15,7 @@ interface Genres {
     name: string;
 }
 
-export const Card: FC<PropsWithChildren<Card>> = ({
+export const Card = ({
     title,
     title_english,
     img,
@@ -25,7 +25,7 @@ export const Card: FC<PropsWithChildren<Card>> = ({
     synopsis,
     genres,
     requestFeatures,
-}) => {
+}: Card) => {
     const [cardTitle, setCarTitle] = useState("");
     const [cardFeatures, setCardFeatures] = useState("");
     const [adaptive, setAdaptive] = useState(false);

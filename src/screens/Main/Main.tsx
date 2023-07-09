@@ -1,4 +1,4 @@
-import { useCallback, useEffect, FC, PropsWithChildren } from "react";
+import { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../../modules";
 import { useNavigate } from "react-router-dom";
@@ -12,9 +12,7 @@ import { Card } from "../../components";
 import { Navbar } from "../../components";
 import { Load } from "../../components/Load/Load";
 
-interface MainProps {}
-
-export const Main: FC<PropsWithChildren<MainProps>> = () => {
+export const Main = () => {
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
@@ -32,13 +30,11 @@ export const Main: FC<PropsWithChildren<MainProps>> = () => {
         }, 1500);
     };
 
-    const requestFeatures = useCallback(
-        (id: number) => {
-            //@ts-ignore
-            dispatch(featuresActions.requestFeatures({ id, navigate }));
-        },
-        [dispatch]
-    );
+    const requestFeatures = (id: number) => {
+        //@ts-ignore
+        dispatch(featuresActions.requestFeatures({ id }));
+        navigate(`/anime-searcher/anime/${id}`);
+    }
 
     useEffect(() => {
         requestAnime();

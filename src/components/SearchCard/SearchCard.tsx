@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface SearchCard {
     title: string;
@@ -9,14 +9,14 @@ interface SearchCard {
     requestFeatures: any;
 }
 
-export const SearchCard: FC<PropsWithChildren<SearchCard>> = ({
+export const SearchCard = ({
     title,
     title_english,
     score,
     img,
     id,
     requestFeatures,
-}) => {
+}: SearchCard) => {
     const [cardTitle, setCarTitle] = useState('')
 
     useEffect(() => {

@@ -10,9 +10,7 @@ import { featuresActions } from "../../modules/features/slice";
 import search_icon from "../../assets/search-icon.svg"; 
 import { SearchCard } from "..";
 
-interface Navbar {}
-
-export const Navbar: FC<PropsWithChildren<Navbar>> = () => {
+export const Navbar = () => {
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
@@ -56,6 +54,16 @@ export const Navbar: FC<PropsWithChildren<Navbar>> = () => {
         clear();
     };
 
+    const handleReturnHome = () => {
+        navigate("/anime-searcher/")
+        window.location.reload();
+    }
+
+    const handleGoFavorite = () => {
+        navigate("/anime-searcher/favorite/")
+        window.location.reload();
+    }
+
     useEffect(() => {
         if (inputValue.trim() === "") {
             clear();
@@ -90,14 +98,14 @@ export const Navbar: FC<PropsWithChildren<Navbar>> = () => {
                 {!isVisible && (
                     <div className="flex w-full">
                         <button
-                            onClick={() => navigate("/")}
+                            onClick={handleReturnHome}
                             type="button"
                             className="inline-block duration-300 p-3 text-white shadow-lg hover:text-violet-700"
                         >
                             Home
                         </button>
                         <button
-                            onClick={() => navigate("/favorite/")}
+                            onClick={handleGoFavorite}
                             type="button"
                             className="inline-block duration-300 p-3 text-white shadow-lg hover:text-violet-700"
                         >

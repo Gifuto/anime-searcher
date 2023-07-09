@@ -1,8 +1,4 @@
-import { FC, PropsWithChildren } from "react";
-
-type LoadProps = {};
-
-export const Load: FC<PropsWithChildren<LoadProps>> = () => {
+export const Load = () => {
     return (
         <div className="w-[300px] mx-auto text-center">
             <h4 className="font-bold text-2xl text-violet-600">
