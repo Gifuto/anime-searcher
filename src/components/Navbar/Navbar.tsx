@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { searchActions } from "../../modules/search/slice";
 import { featuresActions } from "../../modules/features/slice";
 //@ts-ignore
-import search_icon from "../../assets/search-icon.svg"; 
+import search_icon from "../../assets/search-icon.svg";
 import { SearchCard } from "..";
 
 export const Navbar = () => {
@@ -56,13 +56,13 @@ export const Navbar = () => {
     };
 
     const handleReturnHome = () => {
-        navigate("/anime-searcher/")
+        navigate("/anime-searcher/");
         window.location.reload();
-    }
+    };
 
     const handleGoFavorite = () => {
-        navigate("/anime-searcher/favorite")
-    }
+        navigate("/anime-searcher/favorite");
+    };
 
     useEffect(() => {
         if (inputValue.trim() === "") {
@@ -91,6 +91,8 @@ export const Navbar = () => {
             window.removeEventListener("resize", handleResize);
         };
     }, []);
+
+    console.log(inputValue)
 
     return (
         <div className="fixed z-50 top-0 border-b-4 border-violet-700 w-full">
@@ -139,21 +141,17 @@ export const Navbar = () => {
                             </button>
                         </div>
                     )}
-                    <div className="absolute z-10 my-4 h-[605px] overflow-auto">
-                        {animeSearch?.map((item) => {
-                            return (
+                    {inputValue && (
+                        <div className="absolute z-10 my-4 h-[605px] overflow-auto">
+                            {animeSearch?.map(({ ...cardsProps }) => (
                                 <SearchCard
-                                    key={item.mal_id}
-                                    id={item.mal_id}
-                                    img={item.images.jpg.image_url}
-                                    title={item.title}
-                                    title_english={item.title_english}
-                                    score={item.score}
+                                    key={cardsProps.mal_id}
+                                    {...cardsProps}
                                     requestFeatures={requestFeatures}
                                 />
-                            );
-                        })}
-                    </div>
+                            ))}
+                        </div>
+                    )}
                 </form>
             </div>
         </div>

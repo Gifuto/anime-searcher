@@ -15,44 +15,42 @@ interface Genres {
     name: string;
 }
 
-export const Card = ({
-    title,
-    title_english,
-    img,
-    id,
-    year,
-    type,
-    synopsis,
-    genres,
-    requestFeatures,
-}: Card) => {
+export const Card = ({ requestFeatures, ...cardsProps }: any) => {
     const [cardTitle, setCarTitle] = useState("");
     const [cardFeatures, setCardFeatures] = useState("");
     const [adaptive, setAdaptive] = useState(false);
 
-    const animeGenres = genres.map((genre: Genres) => genre.name)
-
     useEffect(() => {
-        if (title_english !== null) {
-            setCarTitle(`${title} / ${title_english}`);
+        if (cardsProps.title_english !== null) {
+            setCarTitle(`${cardsProps.title} / ${cardsProps.title_english}`);
         } else {
-            setCarTitle(`${title}`);
+            setCarTitle(`${cardsProps.title}`);
         }
 
         const handleResize = () => {
             if (window.innerWidth > 500) {
                 setAdaptive(!adaptive);
-                if (year !== null) {
-                    setCardFeatures(`${type} / ${year} / ${animeGenres.join(", ")}`);
+                if (cardsProps.year !== null) {
+                    setCardFeatures(
+                        `${cardsProps.type} / ${
+                            cardsProps.year
+                        } / ${cardsProps.genres
+                            .map((genre: Genres) => genre.name)
+                            .join(", ")}`
+                    );
                 } else {
-                    setCardFeatures(`${type} / ${animeGenres.join(", ")}`);
+                    setCardFeatures(
+                        `${cardsProps.type} / ${cardsProps.genres
+                            .map((genre: Genres) => genre.name)
+                            .join(", ")}`
+                    );
                 }
             } else {
                 setAdaptive(adaptive);
-                if (year !== null) {
-                    setCardFeatures(`${type} / ${year}`);
+                if (cardsProps.year !== null) {
+                    setCardFeatures(`${cardsProps.type} / ${cardsProps.year}`);
                 } else {
-                    setCardFeatures(`${type}`);
+                    setCardFeatures(`${cardsProps.type}`);
                 }
             }
         };
@@ -68,20 +66,26 @@ export const Card = ({
 
     return (
         <div
-            onClick={() => requestFeatures(id)}
+            onClick={() => requestFeatures(cardsProps.mal_id)}
             className="flex w-full mb-5 duration-300 cursor-pointer"
         >
             <div className="sm:max-w-[200px] max-w-[100px]">
-                <img src={img} alt={cardTitle} className="w-full" />
+                <img
+                    src={cardsProps.images.jpg.image_url}
+                    alt={cardTitle}
+                    className="w-full"
+                />
             </div>
             <div className="ml-5 sm:w-[500px] w-[235px]">
                 <h2 className="line-clamp-1 sm:text-2xl text-lg text-purple-600">
                     {cardTitle}
                 </h2>
-                <p className="text-purple-400 sm:text-lg text-base mt-3">{cardFeatures}</p>
+                <p className="text-purple-400 sm:text-lg text-base mt-3">
+                    {cardFeatures}
+                </p>
                 {adaptive ? (
                     <p className="line-clamp-6 text-lg text-justify mt-2">
-                        {synopsis}
+                        {cardsProps.synopsis}
                     </p>
                 ) : null}
             </div>

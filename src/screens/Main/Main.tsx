@@ -34,7 +34,7 @@ export const Main = () => {
         //@ts-ignore
         dispatch(featuresActions.requestFeatures({ id }));
         navigate(`/anime-searcher/anime/${id}`);
-    }
+    };
 
     useEffect(() => {
         requestAnime();
@@ -52,7 +52,7 @@ export const Main = () => {
                         next={fetchMoreData}
                         loader={<Load />}
                     >
-                        {anime.map((cards) => (
+                        {/* {anime.map((cards) => (
                             <Card
                                 key={cards.mal_id}
                                 id={cards.mal_id}
@@ -63,6 +63,13 @@ export const Main = () => {
                                 year={cards.year}
                                 genres={cards.genres}
                                 synopsis={cards.synopsis}
+                                requestFeatures={requestFeatures}
+                            />
+                        ))} */}
+                        {anime.map(({ ...cardsProps }) => (
+                            <Card
+                                key={cardsProps.mal_id}
+                                {...cardsProps}
                                 requestFeatures={requestFeatures}
                             />
                         ))}
