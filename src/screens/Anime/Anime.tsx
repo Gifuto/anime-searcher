@@ -158,7 +158,7 @@ export const Anime = () => {
                                 <Details />
                             </div>
                         )}
-                        <div className="mt-10">
+                        <div className="my-10">
                             <p className="text-lg text-justify mt-2">
                                 <span className="text-purple-600">
                                     Description:

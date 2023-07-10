@@ -62,7 +62,6 @@ export const Navbar = () => {
 
     const handleGoFavorite = () => {
         navigate("/anime-searcher/favorite")
-        window.location.reload();
     }
 
     useEffect(() => {
