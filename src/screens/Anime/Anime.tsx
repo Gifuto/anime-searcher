@@ -182,7 +182,7 @@ export const Anime = () => {
                                     <ReactPlayer
                                         className="mx-auto"
                                         width={adaptiveYTube}
-                                        controls
+                                        controls={true}
                                         url={videoUrl}
                                         fallback={<Load />}
                                     />
