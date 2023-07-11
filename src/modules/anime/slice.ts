@@ -25,7 +25,7 @@ export const animeSlice = createSlice({
     setAnime: (state, action: PayloadAction<Response>) => {
       state.status = REQUEST_STATUS.SUCCESS
       
-      state.items = [...action.payload.data]
+      state.items = action.payload.data
       state.allPages = action.payload.pagination.last_visible_page
     },
     setNextPage: (state, action: PayloadAction<number>) => {

@@ -41,9 +41,13 @@ export const Pagination = () => {
 
     return (
         // className="py-10 mx-16"
-        <div className={adaptive ? `py-10 mx-16` : `py-5 mx-2`}>
+        <div className="sm:py-10 py-5 sm:w-[700px] mx-auto">
             <ReactPaginate
-                className="flex justify-around text-violet-600"
+                className="flex justify-around text-violet-600 sm:text-lg text-xs items-center"
+                previousClassName="sm:p-2"
+                pageClassName="sm:px-3 px-1"
+                activeClassName="bg-violet-600 rounded-full text-white"
+                nextClassName="sm:p-2"
                 breakLabel="..."
                 previousLabel="< prev"
                 nextLabel="next >"
