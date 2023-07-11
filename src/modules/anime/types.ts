@@ -31,7 +31,6 @@ export interface AnimeState {
     items: Anime[]
     nextItems: Anime[]
     status: REQUEST_STATUS
-    hasNextPage: boolean
     allPages: number
     currentPage: number
 }

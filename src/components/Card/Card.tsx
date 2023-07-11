@@ -1,21 +1,27 @@
 import { useEffect, useState } from "react";
-interface Card {
-    title: string;
-    title_english: string;
-    id: number;
-    img: string;
-    year: number;
-    type: string;
-    synopsis: string;
-    genres: Genres[];
-    requestFeatures: any;
-}
 
 interface Genres {
     name: string;
 }
+interface Card {
+    requestFeatures: (id: number) => void;
+    cardsProps: {
+        title: string;
+        title_english: string;
+        mal_id: number;
+        images: {
+            jpg: {
+                image_url: string;
+            };
+        };
+        year: number;
+        type: string;
+        synopsis: string;
+        genres: Genres[];
+    };
+}
 
-export const Card = ({ requestFeatures, ...cardsProps }: any) => {
+export const Card = ({ requestFeatures, cardsProps }: Card) => {
     const [cardTitle, setCarTitle] = useState("");
     const [cardFeatures, setCardFeatures] = useState("");
     const [adaptive, setAdaptive] = useState(false);

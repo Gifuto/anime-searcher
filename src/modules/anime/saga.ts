@@ -7,23 +7,17 @@ import { RootState } from "..";
 //@ts-ignore
 function* getAnime({ type }) {
     try {
-        const { currentPage, hasNextPage } = yield select(
+        const { currentPage } = yield select(
             (state: RootState) => state.anime
         );
         
-        if (hasNextPage) {
-            //@ts-ignore
-            const response = yield call(
-                ANIME_API.get,
-                `/anime?page=${currentPage}`
-            ); //${payload}
+        //@ts-ignore
+        const response = yield call(
+            ANIME_API.get,
+            `/anime?page=${currentPage}`
+        ); //${payload}
 
-            yield put(animeActions.setAnime(response.data));
-            
-            if (type === animeActions.requestAnime.type) {
-                yield put(animeActions.requestNextAnime());
-            }
-        }        
+        yield put(animeActions.setAnime(response.data));
     } catch (error) {
         console.log(error);
     }
@@ -32,7 +26,7 @@ function* getAnime({ type }) {
 export function* watchGetAnime() {
     //@ts-ignore
     yield takeLatest(
-        [animeActions.requestAnime.type, animeActions.requestNextAnime.type],
+        [animeActions.requestAnime.type],
         getAnime
     );
 }

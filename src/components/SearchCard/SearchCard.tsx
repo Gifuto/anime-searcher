@@ -1,27 +1,30 @@
 import { useEffect, useState } from "react";
 
 interface SearchCard {
-    title: string;
-    title_english: string;
-    score: number;
-    id: number;
-    img: string;
-    requestFeatures: any;
+    requestFeatures: (id: number) => void;
+    cardsProps: {
+        title: string;
+        title_english: string;
+        score: number;
+        mal_id: number;
+        images: {
+            jpg: {
+                image_url: string;
+            }
+        }
+    };
 }
 
-export const SearchCard = ({
-    requestFeatures,
-    ...cardsProps
-}: any) => {
-    const [cardTitle, setCarTitle] = useState('')
+export const SearchCard = ({ requestFeatures, cardsProps }: SearchCard) => {
+    const [cardTitle, setCarTitle] = useState("");
 
     useEffect(() => {
         if (cardsProps.title_english !== null) {
-            setCarTitle(`${cardsProps.title} / ${cardsProps.title_english}`)
+            setCarTitle(`${cardsProps.title} / ${cardsProps.title_english}`);
         } else {
-            setCarTitle(`${cardsProps.title}`)
+            setCarTitle(`${cardsProps.title}`);
         }
-    }, [cardTitle])
+    }, [cardTitle]);
 
     return (
         <div
@@ -30,15 +33,17 @@ export const SearchCard = ({
         >
             <div className="flex group duration-300">
                 <div className="w-[200px]">
-                    <img src={cardsProps.images.jpg.image_url} alt={cardTitle} className="w-full rounded-lg" />
+                    <img
+                        src={cardsProps.images.jpg.image_url}
+                        alt={cardTitle}
+                        className="w-full rounded-lg"
+                    />
                 </div>
                 <div className="px-3 rounded-lg absolute bg-violet-500 text-white hidden group-hover:block">
                     <span className="">{Math.round(cardsProps.score)}</span>
                 </div>
             </div>
-            <span className="w-[50px]">
-                {cardTitle}
-            </span>
+            <span className="w-[50px]">{cardTitle}</span>
         </div>
     );
 };

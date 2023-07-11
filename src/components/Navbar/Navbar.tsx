@@ -92,8 +92,6 @@ export const Navbar = () => {
         };
     }, []);
 
-    console.log(inputValue)
-
     return (
         <div className="fixed z-50 top-0 border-b-4 border-violet-700 w-full">
             <div className="flex justify-between items-center py-2 px-5 sm:px-20 bg-zinc-900">
@@ -146,7 +144,7 @@ export const Navbar = () => {
                             {animeSearch?.map(({ ...cardsProps }) => (
                                 <SearchCard
                                     key={cardsProps.mal_id}
-                                    {...cardsProps}
+                                    cardsProps={cardsProps}
                                     requestFeatures={requestFeatures}
                                 />
                             ))}

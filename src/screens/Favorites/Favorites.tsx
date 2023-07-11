@@ -34,12 +34,10 @@ export const Favorites = () => {
                 <div className="mx-auto sm:w-[700px] mt-5 py-10 bg-white drop-shadow-2xl">
                     {favorite.length !== 0 ? (
                         <div className="mx-10">
-                            {favorite.map((cards) => (
+                            {favorite.map(({ ...cardsProps }) => (
                                 <FavoriteCard
-                                    key={cards.id}
-                                    id={cards.id}
-                                    title={cards.title}
-                                    img={cards.img.jpg.image_url}
+                                    key={cardsProps.id}
+                                    cardsProps={cardsProps}
                                     requestFeatures={requestFeatures}
                                     handleRemoveFavorite={handleRemoveFavorite}
                                 />

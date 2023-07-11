@@ -10,7 +10,6 @@ const initialState: AnimeState = {
    items: [],
    nextItems: [],
    status: REQUEST_STATUS.INITIAL,
-   hasNextPage: true,
    allPages: 0,
    currentPage: 1,
 }
@@ -25,21 +24,12 @@ export const animeSlice = createSlice({
     },
     setAnime: (state, action: PayloadAction<Response>) => {
       state.status = REQUEST_STATUS.SUCCESS
-      state.items = [...state.items, ...action.payload.data]
-      state.hasNextPage = action.payload.pagination.has_next_page
-      state.currentPage = state.currentPage + 1
+      
+      state.items = [...action.payload.data]
+      state.allPages = action.payload.pagination.last_visible_page
     },
-    requestNextAnime: (state, action: PayloadAction) => {
-      state.status = REQUEST_STATUS.LOADING
-      console.log(action)
-    },
-    setNextAnime: (state, action: PayloadAction<Response>) => {
-      state.status = REQUEST_STATUS.SUCCESS
-      state.nextItems = action.payload.data
-      state.items = [...state.items, ...state.nextItems]
-      state.nextItems = []
-      state.hasNextPage = action.payload.pagination.has_next_page
-      state.currentPage = state.currentPage + 1
+    setNextPage: (state, action: PayloadAction<number>) => {
+      state.currentPage = action.payload
     }
   },
 })
