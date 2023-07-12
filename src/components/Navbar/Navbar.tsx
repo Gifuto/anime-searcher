@@ -38,15 +38,12 @@ export const Navbar = () => {
         dispatch(searchActions.clearSearch());
     }, [dispatch]);
 
-    const requestFeatures = useCallback(
-        (id: number) => {
-            setInputValue("");
-            //@ts-ignore
-            dispatch(featuresActions.requestFeatures({ id }));
-            navigate(`/anime-searcher/anime/${id}`);
-        },
-        [dispatch]
-    );
+    const requestFeatures = (id: number) => {
+        setInputValue("");
+        //@ts-ignore
+        dispatch(featuresActions.requestFeatures({ id }));
+        navigate(`/anime-searcher/anime/${id}`);
+    }
 
     const handleVisibleInput = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();

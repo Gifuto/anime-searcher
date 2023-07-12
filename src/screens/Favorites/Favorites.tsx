@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../modules";
 
@@ -14,14 +13,11 @@ export const Favorites = () => {
 
     const navigate = useNavigate();
 
-    const requestFeatures = useCallback(
-        (id: number) => {
-            //@ts-ignore
-            dispatch(featuresActions.requestFeatures({ id }));
-            navigate(`/anime-searcher/anime/${id}`);
-        },
-        [dispatch]
-    );
+    const requestFeatures = (id: number) => {
+        //@ts-ignore
+        dispatch(featuresActions.requestFeatures({ id }));
+        navigate(`/anime-searcher/anime/${id}`);
+    };
 
     const handleRemoveFavorite = (id: number) => {
         dispatch(favoriteActions.removeFavorite(id));
