@@ -8,18 +8,19 @@ export const Pagination = () => {
     const dispatch = useDispatch();
 
     const pageCount = useSelector((state: RootState) => state.anime.allPages);
+    const currentPage = useSelector((state: RootState) => state.anime.currentPage);
 
     const handlePageClick = (event: any) => {
         const page = event.selected + 1;
+
         dispatch(animeActions.setNextPage(page));
         dispatch(animeActions.requestAnime());
         setTimeout(() => {
-            window.scrollTo(0, 0)
-        }, 100)
+            window.scrollTo(0, 0);
+        }, 100);
     };
 
     return (
-        // className="py-10 mx-16"
         <div className="sm:py-10 py-5 sm:w-[700px] mx-auto">
             <ReactPaginate
                 className="flex justify-around text-violet-600 sm:text-lg text-xs items-center"
@@ -34,6 +35,7 @@ export const Pagination = () => {
                 pageRangeDisplayed={3}
                 pageCount={pageCount}
                 onPageChange={handlePageClick}
+                forcePage={currentPage - 1}
             />
         </div>
     );

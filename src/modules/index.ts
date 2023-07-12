@@ -36,7 +36,7 @@ export const rootReducer = combineReducers({
 const persistConfig = {
     key: "root",
     storage: storage,
-    whitelist: [FAVORITE],
+    whitelist: [FAVORITE, ANIME],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
