@@ -7,13 +7,12 @@ import { animeActions } from "../../modules/anime/slice";
 export const Pagination = () => {
     const dispatch = useDispatch();
 
-    const pageCount = useSelector((state: RootState) => state.anime.allPages);
+    const allPages = useSelector((state: RootState) => state.anime.allPages);
     const currentPage = useSelector((state: RootState) => state.anime.currentPage);
 
-    const handlePageClick = (event: any) => {
-        const page = event.selected + 1;
-
-        dispatch(animeActions.setNextPage(page));
+    const handlePageClick = ({ selected }: { selected: number }) => {
+        const pageNumber = selected + 1
+        dispatch(animeActions.setNextPage(pageNumber));
         dispatch(animeActions.requestAnime());
         setTimeout(() => {
             window.scrollTo(0, 0);
@@ -33,7 +32,7 @@ export const Pagination = () => {
                 nextLabel="next >"
                 renderOnZeroPageCount={null}
                 pageRangeDisplayed={3}
-                pageCount={pageCount}
+                pageCount={allPages}
                 onPageChange={handlePageClick}
                 forcePage={currentPage - 1}
             />
